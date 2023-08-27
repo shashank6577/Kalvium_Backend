@@ -4,6 +4,18 @@ const port = 3000;
 
 const history = [];
 
+app.get('/', (req,res) =>{
+    res.send(`
+        <h1>Available Endpoints</h1>
+        <ul>
+            <li><code>/history</code> : Lists the last 20 operations performed on the server</li>
+            <li><code>/3/plus/5</code> : Performs the operation 3+5 and returns the JSON</li>
+            <li><code>/3/minus/5</code> : Performs the operation 3-5 and returns the JSON</li>
+        </ul>
+    `);
+});
+
+
 app.get('/history', (req,res)=>{
     res.json(history);
 });
