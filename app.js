@@ -1,8 +1,16 @@
 const express  = require('express');
+const fs = require('fs'); 
 const app = express(); 
 const port = 3000;
 
-const history = [];
+let history = [];
+
+try{
+    const data = fs.readFileSync('history.json','utf8'); 
+    history = JSON.parse(data); 
+}catch(err){
+    console.log("No existing history found"); 
+}
 
 app.get('/', (req,res) =>{
     res.send(`
@@ -45,6 +53,7 @@ app.get('/*', (req,res) => {
         if(history.length > 20){
             history.shift(); 
         }
+        fs.writeFileSync('history.json',JSON.stringify(history));
         res.json({question : mathExp, answer }); 
 
     } catch(err){
